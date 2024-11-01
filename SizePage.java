@@ -1,7 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class SizePage extends JFrame{
+
+public class SizePage extends JFrame implements ActionListener{
     JLabel jl;
     JPanel jp1;
     JPanel jp2;
@@ -45,6 +48,9 @@ public class SizePage extends JFrame{
         //size1.setBackground(new Color(27, 108, 54));
         //size2.setBackground(new Color(27, 108, 54));
         //size3.setBackground(new Color(27, 108, 54));
+        size1.addActionListener(this);
+        size2.addActionListener(this);
+        size3.addActionListener(this);
 
 
         jp2 = new JPanel();                 //panel for buttons
@@ -55,5 +61,22 @@ public class SizePage extends JFrame{
         jp2.add(size2);
         jp2.add(size3);
         this.add(jp2);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource()==size1)
+        {
+            new Space(20,30);
+        }
+        if(e.getSource()==size2)
+        {
+            new Space(30,50);
+        }
+        if(e.getSource()==size3)
+        {
+            new Space(40,60);
+        }
     }
 }
