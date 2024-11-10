@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -8,10 +7,15 @@ import java.awt.event.MouseMotionListener;
 public class Room extends JPanel implements MouseListener, MouseMotionListener
 {
     Point prevpt;
+    Point finalpt;
+    int width,height;
 
     Room()
     {
         this.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
+        this.setOpaque(true);
     }
 
     @Override
@@ -22,11 +26,19 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mousePressed(MouseEvent e) {
         prevpt = e.getPoint();
+        
+        if(SwingUtilities.isRightMouseButton(e))
+        {
+            int x = this.width;
+            this.width = this.height;
+            this.height = x;
+            this.setBounds(this.getX(),this.getY(),this.width,this.height);
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        finalpt = this.getLocation();
     }
 
     @Override
@@ -56,20 +68,19 @@ class Kitchen extends Room
 {
     Kitchen()
     {
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
-        this.setBounds(1230,75,150,100);
+        width = 150;
+        height = 100;
+        this.setBounds(1230,75,width,height);
         this.setBackground(new Color(255, 171, 171, 255));
-        this.setOpaque(true);
     }
 }
 class Bathroom extends Room
 {
     Bathroom()
     {
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
-        this.setBounds(1230,275,150,100);
+        width = 150;
+        height = 100;
+        this.setBounds(1230,275,width,height);
         this.setBackground(new Color(190, 236, 255, 255));
     }
 }
@@ -77,9 +88,9 @@ class DrawingRoom extends Room
 {
     DrawingRoom()
     {
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
-        this.setBounds(1230,175,150,100);
+        width = 150;
+        height = 100;
+        this.setBounds(1230,175,width,height);
         this.setBackground(new Color(255, 218, 176, 255));
     }
 }
@@ -87,32 +98,19 @@ class Garage extends Room
 {
     Garage()
     {
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
-        this.setBounds(1230,575,150,100);
+        width = 150;
+        height = 100;
+        this.setBounds(1230,575,width,height);
         this.setBackground(new Color(217, 189, 253, 255));
     }
 }
 class Bedroom extends Room
 {
-    Bedroom()
+    Bedroom(int width, int height, int y)
     {
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
+        this.width = width;
+        this.height = height;
+        this.setBounds(1230,y,width,height);
         this.setBackground(new Color(194, 255, 200, 255));
-    }
-}
-class Sbedroom extends Bedroom
-{
-    Sbedroom()
-    {
-        this.setBounds(1230,375,150,100);
-    }
-}
-class Lbedroom extends Bedroom
-{
-    Lbedroom()
-    {
-        this.setBounds(1230, 475, 150, 100);
     }
 }
