@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Space_Page extends JFrame implements ActionListener
 {
@@ -18,13 +19,15 @@ public class Space_Page extends JFrame implements ActionListener
     JButton bathroom;
     JButton sbedroom;
     JButton lbedroom;
-
     JButton bed;
+    ArrayList<Room> history;
 
 
     Space_Page(int width, int height)
     {
+        history = new ArrayList<>();
 
+        new ArrayList<>();
         this.setLayout(null);
         this.setSize(2000,1000);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,47 +110,52 @@ public class Space_Page extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == kitchen)
         {
-            pane.add(new Kitchen(),Integer.valueOf(2) );
+            Kitchen k= new Kitchen();
+            pane.add(k, Integer.valueOf(2));
+            history.add(k);
             revalidate();
             repaint();
         }
         if(e.getSource() == garage)
         {
-            pane.add(new Garage(),Integer.valueOf(2));
+            Garage g = new Garage();
+            pane.add(g,Integer.valueOf(2));
+            history.add(g);
             revalidate();
             repaint();
         }
         if(e.getSource() == drawingroom)
         {
-            pane.add(new DrawingRoom(),Integer.valueOf(2));
+            DrawingRoom dr = new DrawingRoom();
+            pane.add(dr,Integer.valueOf(2));
+            history.add(dr);
             revalidate();
             repaint();
         }
         if(e.getSource() == bathroom)
         {
-            pane.add(new Bathroom(),Integer.valueOf(2));
+            Bathroom b = new Bathroom();
+            pane.add(b,Integer.valueOf(2));
+            history.add(b);
             revalidate();
             repaint();
         }
         if(e.getSource() == sbedroom)
         {
-            pane.add(new Sbedroom(),Integer.valueOf(2));
+            Bedroom sb = new Bedroom(150,100,375);
+            pane.add(sb,Integer.valueOf(2));
+            history.add(sb);
             revalidate();
             repaint();
         }
         if(e.getSource() == lbedroom)
         {
-            pane.add(new Lbedroom(),Integer.valueOf(2));
+            Bedroom lb = new Bedroom(150,100,475);
+            pane.add(lb,Integer.valueOf(2));
+            history.add(lb);
             revalidate();
             repaint();
         }
 
-    }
-}
-
-class mainsdf
-{
-    public static void main(String[] args) {
-        new Space_Page(50,20);
     }
 }
