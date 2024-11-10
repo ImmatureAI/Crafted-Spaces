@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class Room extends JPanel implements MouseListener, MouseMotionListener
+public class Room extends JPanel implements MouseListener, MouseMotionListener, Crafted_Spaces
 {
     Point prevpt;
     Point finalpt;
@@ -26,7 +26,7 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mousePressed(MouseEvent e) {
         prevpt = e.getPoint();
-        
+
         if(SwingUtilities.isRightMouseButton(e))
         {
             int x = this.width;
@@ -80,7 +80,7 @@ class Bathroom extends Room
     {
         width = 150;
         height = 100;
-        this.setBounds(1230,275,width,height);
+        this.setBounds(1230,350,width,height);
         this.setBackground(new Color(190, 236, 255, 255));
     }
 }
