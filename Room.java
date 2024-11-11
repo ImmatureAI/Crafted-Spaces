@@ -12,6 +12,7 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
 
     Room()
     {
+        history.add(this);
         this.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
@@ -26,7 +27,7 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
     @Override
     public void mousePressed(MouseEvent e) {
         prevpt = e.getPoint();
-
+        initialpoint = this.getLocation();
         if(SwingUtilities.isRightMouseButton(e))
         {
             int x = this.width;
@@ -38,7 +39,18 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        finalpt = this.getLocation();
+        for(Room room : history) {
+            if(this.getX()>room.getX() && this.getX()< room.getX()+room.width){
+                if((this.getY()>room.getY() && this.getY()<room.getY()+room.height) || (this.getY()+this.height>room.getY() && this.getY()+this.height<room.getY()+room.height)){
+                    this.setBounds(initialpoint.x, initialpoint.y, this.width, this.height);
+                }
+            }
+            if(this.getX()+this.width>room.getX() && this.getX()+this.width < room.getX()+room.width){
+                if((this.getY()>room.getY() && this.getY()<room.getY()+room.height) || (this.getY()+this.height>room.getY() && this.getY()+this.height<room.getY()+room.height)){
+                    this.setBounds(initialpoint.x, initialpoint.y, this.width, this.height);
+                }
+            }
+        }
     }
 
     @Override
