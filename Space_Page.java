@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
-public class Space_Page extends JFrame implements Crafted_Spaces
+public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
 {
 
     JLayeredPane pane;
@@ -42,7 +42,6 @@ public class Space_Page extends JFrame implements Crafted_Spaces
 
     Space_Page(int width, int height)
     {
-        ArrayList<Room> history = new ArrayList<>();
         this.setLayout(null);
         this.setSize(2000, 1000);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,7 +81,6 @@ public class Space_Page extends JFrame implements Crafted_Spaces
                 if (e.getSource() == kitchen) {
                     Kitchen k= new Kitchen();
                     pane.add(k, Integer.valueOf(2));
-                    history.add(k);
                     revalidate();
                     repaint();
                 }
@@ -99,7 +97,6 @@ public class Space_Page extends JFrame implements Crafted_Spaces
                 if (e.getSource() == drawingroom) {
                     DrawingRoom dr = new DrawingRoom();
                     pane.add(dr,Integer.valueOf(2));
-                    history.add(dr);
                     revalidate();
                     repaint();
                 }
@@ -116,7 +113,6 @@ public class Space_Page extends JFrame implements Crafted_Spaces
                 if (e.getSource() == bathroom) {
                     Bathroom b = new Bathroom();
                     pane.add(b,Integer.valueOf(2));
-                    history.add(b);
                     revalidate();
                     repaint();
                 }
@@ -133,7 +129,6 @@ public class Space_Page extends JFrame implements Crafted_Spaces
                 if (e.getSource() == sbedroom) {
                     Bedroom sb = new Bedroom(150,100,375);
                     pane.add(sb,Integer.valueOf(2));
-                    history.add(sb);
                     revalidate();
                     repaint();
                 }
@@ -150,7 +145,6 @@ public class Space_Page extends JFrame implements Crafted_Spaces
                 if (e.getSource() == lbedroom) {
                     Bedroom lb = new Bedroom(150,100,475);
                     pane.add(lb,Integer.valueOf(2));
-                    history.add(lb);
                     revalidate();
                     repaint();
                 }
@@ -167,7 +161,6 @@ public class Space_Page extends JFrame implements Crafted_Spaces
                 if (e.getSource() == garage) {
                     Garage g = new Garage();
                     pane.add(g,Integer.valueOf(2));
-                    history.add(g);
                     revalidate();
                     repaint();
                 }
@@ -433,13 +426,5 @@ public class Space_Page extends JFrame implements Crafted_Spaces
         pane.add(workspace, Integer.valueOf(1));
         this.add(pane);
         this.setVisible(true);
-    }
-}
-
-class mainsdf
-{
-    public static void main(String[] args)
-    {
-        new Space_Page(50,20);
     }
 }
