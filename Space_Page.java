@@ -1,11 +1,12 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
+public class Space_Page extends JFrame implements Crafted_Spaces
 {
 
     JLayeredPane pane;
@@ -61,7 +62,7 @@ public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(1380, 75, 150, 700);
+        rooms.setBounds(1380, 75, 150, 600);
         rooms.setLayout(new GridLayout(6, 1));
 
         menubar = new JMenuBar();
@@ -85,7 +86,7 @@ public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
                 }
             }
         });
-        kitchen.setBorder(new LineBorder(Color.black, 5));
+        kitchen.setBorder(new MatteBorder(4,4,2,4, Color.black));
         kitchen.setFocusable(false);
 
         drawingroom = new JButton("Drawing Room");
@@ -101,7 +102,7 @@ public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
                 }
             }
         });
-        drawingroom.setBorder(new LineBorder(Color.black, 5));
+        drawingroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
         drawingroom.setFocusable(false);
 
         bathroom = new JButton("Bathroom");
@@ -117,7 +118,7 @@ public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
                 }
             }
         });
-        bathroom.setBorder(new LineBorder(Color.black, 5));
+        bathroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
         bathroom.setFocusable(false);
 
         sbedroom = new JButton("Small bedroom");
@@ -133,7 +134,7 @@ public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
                 }
             }
         });
-        sbedroom.setBorder(new LineBorder(Color.black, 5));
+        sbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
         sbedroom.setFocusable(false);
 
         lbedroom = new JButton("Large bedroom");
@@ -149,7 +150,7 @@ public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
                 }
             }
         });
-        lbedroom.setBorder(new LineBorder(Color.black, 5));
+        lbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
         lbedroom.setFocusable(false);
 
         garage = new JButton("Garage");
@@ -165,7 +166,7 @@ public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
                 }
             }
         });
-        garage.setBorder(new LineBorder(Color.black, 5));
+        garage.setBorder(new MatteBorder(2,4,4,4, Color.black));
         garage.setFocusable(false);
 
 
