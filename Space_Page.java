@@ -3,7 +3,6 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 
 public class Space_Page extends JFrame implements ActionListener, Crafted_Spaces
