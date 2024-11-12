@@ -42,11 +42,13 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
         for(Room room : history) {
             if(this.getX()>room.getX() && this.getX()< room.getX()+room.width){
                 if((this.getY()>room.getY() && this.getY()<room.getY()+room.height) || (this.getY()+this.height>room.getY() && this.getY()+this.height<room.getY()+room.height)){
+                    JOptionPane.showMessageDialog(null,"Overlap", "ERROR", JOptionPane.WARNING_MESSAGE);
                     this.setBounds(initialpoint.x, initialpoint.y, this.width, this.height);
                 }
             }
             if(this.getX()+this.width>room.getX() && this.getX()+this.width < room.getX()+room.width){
                 if((this.getY()>room.getY() && this.getY()<room.getY()+room.height) || (this.getY()+this.height>room.getY() && this.getY()+this.height<room.getY()+room.height)){
+                    JOptionPane.showMessageDialog(null,"Overlap", "ERROR", JOptionPane.WARNING_MESSAGE);
                     this.setBounds(initialpoint.x, initialpoint.y, this.width, this.height);
                 }
             }
