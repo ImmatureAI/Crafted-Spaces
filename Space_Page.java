@@ -48,7 +48,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         this.setLayout(null);
         this.setSize(2000, 1000);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        this.setResizable(false);
         this.getContentPane().setBackground(new Color(27, 108, 54));
 
         pane = new JLayeredPane();
