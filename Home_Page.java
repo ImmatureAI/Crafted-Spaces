@@ -2,21 +2,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class Home_Page extends JFrame implements ActionListener
 {
     JButton NewProject;
     JButton OpenProject;
+    
+    int response;
+    JFileChooser jfc;
     Home_Page()
     {
         this.setVisible(true);
-        this.setSize(1000,1000);
+        this.setSize(1000,600);
         this.setTitle("Home Page");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
 
         JPanel panel = new JPanel();
-        panel.setLayout( new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(new Color(27, 108, 54));
         panel.add(Box.createRigidArea(new Dimension(0, 200)));
 
@@ -55,7 +62,28 @@ public class Home_Page extends JFrame implements ActionListener
         }
         else if( e.getSource() == OpenProject)
         {
-            System.out.println("Open Project");
+            JFileChooser jfc = new JFileChooser();
+
+            response = jfc.showOpenDialog(null);
+            if (response == 0) {
+
+                File fileToOpen = jfc.getSelectedFile();
+                Details dets;
+
+                try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen.getPath()))) {
+                    CloseCurrentFrame();
+                    dets = (Details) ios.readObject();
+                    new Space_Page(dets.rooms,dets.accessories, dets.width, dets.height);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null,"Unexpected Error opening file","Unexpected Error",JOptionPane.ERROR_MESSAGE);
+                } catch (ClassNotFoundException e1) {
+                    JOptionPane.showMessageDialog(null, "Incorrect file format", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
+    }
+    
+    private void CloseCurrentFrame(){
+        this.dispose();
     }
 }
