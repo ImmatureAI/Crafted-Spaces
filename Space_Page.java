@@ -85,7 +85,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
                     if(response == JFileChooser.APPROVE_OPTION) {
                         File fileToSave = jfc.getSelectedFile();
 
-                        Details details = new Details(history, width, height);
+                        Details details = new Details(history, accessoryHistory,width, height);
 
                         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
                             oos.writeObject(details);
@@ -105,15 +105,16 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
                     response = jfc.showOpenDialog(null);
                     if (response == 0) {
-                        history.clear();
 
                         File fileToOpen = jfc.getSelectedFile();
                         Details dets;
 
                         try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen.getPath()))) {
+                            history.clear();
+                            accessoryHistory.clear();
                             CloseCurrentFrame();
                             dets = (Details) ios.readObject();
-                            new Space_Page(dets.rooms, dets.width, dets.height);
+                            new Space_Page(dets.rooms,dets.accessories, dets.width, dets.height);
                         } catch (IOException ex) {
 
                         } catch (ClassNotFoundException e1) {
@@ -490,7 +491,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
     //For the opening file thing
 
-    Space_Page(ArrayList<Room> room, int width, int height)
+    Space_Page(ArrayList<Room> room, ArrayList<Accessories> accessory, int width, int height)
     {
         this.setLayout(null);
         this.setSize(2000, 1000);
@@ -528,7 +529,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
                     if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                         File fileToSave = jfc.getSelectedFile();
 
-                        Details details = new Details(history, width, height);
+                        Details details = new Details(history, accessoryHistory,width, height);
 
                         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
                             oos.writeObject(details);
@@ -547,18 +548,14 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
                     JFileChooser jfc = new JFileChooser();
 
                     if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                        history.clear();
                         File fileToOpen = jfc.getSelectedFile();
 
                         try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen))) {
+                            history.clear();
+                            accessoryHistory.clear();
                             CloseCurrentFrame();
                             Details dets = (Details) ios.readObject();
-                            for (Room r : dets.rooms) {
-                                System.out.println(r.width);
-                                System.out.println(r.height);
-                                System.out.println(r.finalpt);
-                            }
-                            new Space_Page(dets.rooms, dets.width, dets.height);
+                            new Space_Page(dets.rooms,dets.accessories, dets.width, dets.height);
                         } catch (IOException ex) {
 
                         } catch (ClassNotFoundException e1) {
@@ -674,10 +671,15 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         //constructing the opened file
 
         for (Room r: room){
-            System.out.println(r.height);
             r.setBounds((int)r.finalpt.getX(),(int)r.finalpt.getY(),r.width,r.height);
-            this.add(r);
+            pane.add(r,Integer.valueOf(2));
             history.add(r);
+        }
+
+        for (Accessories a: accessory){
+            a.setBounds((int)a.finalpt.getX(),(int)a.finalpt.getY(),a.breadth,a.length);
+            pane.add(a,Integer.valueOf(3));
+            accessoryHistory.add(a);
         }
 
 
@@ -938,5 +940,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
     public void CloseCurrentFrame(){
         this.dispose();
+    }
+}
+
+class mainsdfe
+{
+    public static void main(String[] args) throws IOException {
+        new Space_Page(50,20);
     }
 }
