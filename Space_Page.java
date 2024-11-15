@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -109,6 +110,9 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == open){
                     JFileChooser jfc = new JFileChooser();
+
+                    FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter("Crafted Spaces Projects","myext");
+                    jfc.setFileFilter(fileNameExtensionFilter);
 
                     response = jfc.showOpenDialog(null);
                     if (response == 0) {
@@ -565,6 +569,9 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == open) {
                     JFileChooser jfc = new JFileChooser();
+                    
+                    FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter("Crafted Spaces Projects","myext");
+                    jfc.setFileFilter(fileNameExtensionFilter);
 
                     if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                         if (jfc.getSelectedFile().getName().endsWith(".myext")) {
@@ -965,12 +972,5 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
     private void CloseCurrentFrame(){
         this.dispose();
-    }
-}
-
-class mainsdfe
-{
-    public static void main(String[] args) throws IOException {
-        new Space_Page(50,20);
     }
 }
