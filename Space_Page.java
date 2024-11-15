@@ -67,7 +67,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(1380, 75, 150, 600);
+        rooms.setBounds(180, 75, 150, 600);
         rooms.setLayout(new GridLayout(6, 1));
 
         menubar = new JMenuBar();
@@ -83,7 +83,14 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
                     int response = jfc.showSaveDialog(null);
 
                     if(response == JFileChooser.APPROVE_OPTION) {
-                        File fileToSave = jfc.getSelectedFile();
+                        File fileToSave;
+
+                        if(jfc.getSelectedFile().getName().endsWith(".myext")){
+                            fileToSave = jfc.getSelectedFile();
+                        }
+                        else{
+                            fileToSave = new File(jfc.getSelectedFile().getPath() + ".myext");
+                        }
 
                         Details details = new Details(history, accessoryHistory,width, height);
 
@@ -105,20 +112,26 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
                     response = jfc.showOpenDialog(null);
                     if (response == 0) {
+                        File fileToOpen;
 
-                        File fileToOpen = jfc.getSelectedFile();
-                        Details dets;
+                        if(jfc.getSelectedFile().getName().endsWith(".myext")) {
+                            fileToOpen = jfc.getSelectedFile();
+                            Details dets;
 
-                        try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen.getPath()))) {
-                            history.clear();
-                            accessoryHistory.clear();
-                            CloseCurrentFrame();
-                            dets = (Details) ios.readObject();
-                            new Space_Page(dets.rooms,dets.accessories, dets.width, dets.height);
-                        } catch (IOException ex) {
-
-                        } catch (ClassNotFoundException e1) {
-                            JOptionPane.showMessageDialog(null, "Invalid File Type", "Invalid File Type", JOptionPane.ERROR_MESSAGE);
+                            try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen.getPath()))) {
+                                history.clear();
+                                accessoryHistory.clear();
+                                CloseCurrentFrame();
+                                dets = (Details) ios.readObject();
+                                new Space_Page(dets.rooms, dets.accessories, dets.width, dets.height);
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "Unexpected Error opening file", "Unexpected Error", JOptionPane.ERROR_MESSAGE);
+                            } catch (ClassNotFoundException e1) {
+                                JOptionPane.showMessageDialog(null, "Incorrect file format", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"Invalid File Type Selected","Error",JOptionPane.WARNING_MESSAGE);
                         }
                     }
                 }
@@ -513,7 +526,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(1380, 75, 150, 600);
+        rooms.setBounds(180, 75, 150, 600);
         rooms.setLayout(new GridLayout(6, 1));
 
         menubar = new JMenuBar();
@@ -527,7 +540,13 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
                     JFileChooser jfc = new JFileChooser();
 
                     if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                        File fileToSave = jfc.getSelectedFile();
+                        File fileToSave;
+                        if (jfc.getSelectedFile().getName().endsWith(".myext")) {
+                            fileToSave = jfc.getSelectedFile();
+                        }
+                        else{
+                            fileToSave = new File(jfc.getSelectedFile().getPath() + ".myext");
+                        }
 
                         Details details = new Details(history, accessoryHistory,width, height);
 
@@ -544,21 +563,27 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == open){
+                if (e.getSource() == open) {
                     JFileChooser jfc = new JFileChooser();
 
-                    if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                        File fileToOpen = jfc.getSelectedFile();
+                    if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                        if (jfc.getSelectedFile().getName().endsWith(".myext")) {
+                            File fileToOpen = jfc.getSelectedFile();
 
-                        try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen))) {
-                            history.clear();
-                            accessoryHistory.clear();
-                            CloseCurrentFrame();
-                            Details dets = (Details) ios.readObject();
-                            new Space_Page(dets.rooms,dets.accessories, dets.width, dets.height);
-                        } catch (IOException ex) {
-
-                        } catch (ClassNotFoundException e1) {
+                            try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen))) {
+                                history.clear();
+                                accessoryHistory.clear();
+                                CloseCurrentFrame();
+                                Details dets = (Details) ios.readObject();
+                                new Space_Page(dets.rooms, dets.accessories, dets.width, dets.height);
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "Unexpected Error opening file", "Unexpected Error", JOptionPane.ERROR_MESSAGE);
+                            } catch (ClassNotFoundException e1) {
+                                JOptionPane.showMessageDialog(null, "Incorrect file format", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"Invalid File Type Selected", "Error", JOptionPane.WARNING_MESSAGE);
                         }
                     }
                 }
@@ -938,7 +963,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         this.setVisible(true);
     }
 
-    public void CloseCurrentFrame(){
+    private void CloseCurrentFrame(){
         this.dispose();
     }
 }
