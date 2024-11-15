@@ -37,6 +37,14 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
             this.height = x;
             this.setBounds(this.getX(),this.getY(),this.width,this.height);
         }
+        if(SwingUtilities.isMiddleMouseButton(e)){
+            RelativePosition relpos = new RelativePosition(history, numberofrooms);
+            int result = JOptionPane.showOptionDialog(null, relpos, "Relative Position", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,null,0);
+            this.setVisible(true);
+            if(result==0){
+                this.setLocation(relpos.changeposition(history.get(relpos.roomchecks.getSelectedIndex()), (String)relpos.position.getSelectedItem(), (String)relpos.alignment.getSelectedItem(), this));
+            }
+        }
     }
 
     @Override
