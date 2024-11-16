@@ -10,6 +10,7 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
     Point initialpoint;
     Point finalpt;
     int width,height;
+    static int numberofrooms=0;
 
     Room()
     {
@@ -18,6 +19,7 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.setOpaque(true);
+        numberofrooms++;
     }
 
     @Override
