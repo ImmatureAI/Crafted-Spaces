@@ -7,20 +7,20 @@ public interface Crafted_Spaces
     ArrayList<Room> history = new ArrayList<>();
     ArrayList<Accessories> accessoryHistory = new ArrayList<>();
     
-    ImageIcon Icon1 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\sbed-removebg-preview.png");
-    ImageIcon Icon2 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\lbed-removebg-preview.png");
-    ImageIcon Icon3 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\shelf1-removebg-preview.png");
-    ImageIcon Icon4 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\shelf2_-_Copy-removebg-preview.png");
-    ImageIcon Icon5 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\sofa1-removebg-preview.png");
-    ImageIcon Icon6 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\sofa2-removebg-preview.png");
-    ImageIcon Icon7 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\sofa3-removebg-preview.png");
-    ImageIcon Icon8 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\table-removebg-preview.png");
-    ImageIcon Icon9 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\desk-removebg-preview.png");
-    ImageIcon Icon10 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\bath-removebg-preview.png");
-    ImageIcon Icon11 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\urinal-removebg-preview (1).png");
-    ImageIcon Icon12 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\sink-removebg-preview.png");
-    ImageIcon Icon13 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\door-removebg-preview.png");
-    ImageIcon Icon14 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\window-removebg-preview.png");
+   ImageIcon Icon1 = new ImageIcon("sbed.png");
+    ImageIcon Icon2 = new ImageIcon("lbed.png");
+    ImageIcon Icon3 = new ImageIcon("shelf1.png");
+    ImageIcon Icon4 = new ImageIcon("shelf2.png");
+    ImageIcon Icon5 = new ImageIcon("sofa1.png");
+    ImageIcon Icon6 = new ImageIcon("sofa2.png");
+    ImageIcon Icon7 = new ImageIcon("sofa3.png");
+    ImageIcon Icon8 = new ImageIcon("table.png");
+    ImageIcon Icon9 = new ImageIcon("desk.png");
+    ImageIcon Icon10 = new ImageIcon("bath.png");
+    ImageIcon Icon11 = new ImageIcon("urinal.png");
+    ImageIcon Icon12 = new ImageIcon("sink.png");
+    ImageIcon Icon13 = new ImageIcon("door.png");
+    ImageIcon Icon14 = new ImageIcon("window.png");
 
     Image i1 = Icon1.getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH);
     Image i2 = Icon2.getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH);
