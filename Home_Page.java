@@ -17,7 +17,7 @@ public class Home_Page extends JFrame implements ActionListener
     Home_Page()
     {
         this.setVisible(true);
-        this.setSize(1000,600);
+        this.setSize(2000,100);
         this.setTitle("Home Page");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
