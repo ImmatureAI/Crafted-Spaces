@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public interface Crafted_Spaces
 {
     ArrayList<Room> history = new ArrayList<>();
+    ArrayList<Accessories> accessoryHistory = new ArrayList<>();
     
     ImageIcon Icon1 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\sbed-removebg-preview.png");
     ImageIcon Icon2 = new ImageIcon("C:\\Users\\Vishisht\\Desktop\\Mis archivos\\JAVA\\Swing\\Floor planner\\lbed-removebg-preview.png");
