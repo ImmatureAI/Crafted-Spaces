@@ -3,8 +3,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -15,6 +13,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
     JLayeredPane pane;
     JPanel workspace;
     JPanel accessories;
+    JPanel outside;
     JPanel rooms;
     JMenuBar menubar;
     JMenu file;
@@ -51,7 +50,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         this.setLayout(null);
         this.setSize(2000, 1000);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        this.setResizable(false);
         this.getContentPane().setBackground(new Color(27, 108, 54));
 
         pane = new JLayeredPane();
@@ -63,80 +62,80 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         workspace.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         workspace.setOpaque(true);
 
+        outside = new JPanel();
+        outside.setBounds(700-(5*width), 300-(5*height), 10*width+200, 10*height+200);
+        outside.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        outside.setBackground(new Color(181, 181, 181, 187));
+        outside.setOpaque(true);
+
         accessories = new JPanel();
         accessories.setBounds(0, 75, 200, 700);
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(180, 75, 150, 600);
+        rooms.setBounds(1380, 75, 150, 600);
         rooms.setLayout(new GridLayout(6, 1));
 
         menubar = new JMenuBar();
         file = new JMenu("File");
         save = new JMenuItem("Save");
         open = new JMenuItem("Open");
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == save){
-                    JFileChooser jfc = new JFileChooser();
+        save.addActionListener(e -> {
+            if (e.getSource() == save){
+                JFileChooser jfc = new JFileChooser();
 
-                    int response = jfc.showSaveDialog(null);
+                int response = jfc.showSaveDialog(null);
 
-                    if(response == JFileChooser.APPROVE_OPTION) {
-                        File fileToSave;
+                if(response == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave;
 
-                        if(jfc.getSelectedFile().getName().endsWith(".myext")){
-                            fileToSave = jfc.getSelectedFile();
-                        }
-                        else{
-                            fileToSave = new File(jfc.getSelectedFile().getPath() + ".myext");
-                        }
+                    if(jfc.getSelectedFile().getName().endsWith(".myext")){
+                        fileToSave = jfc.getSelectedFile();
+                    }
+                    else{
+                        fileToSave = new File(jfc.getSelectedFile().getPath() + ".myext");
+                    }
 
-                        Details details = new Details(history, accessoryHistory,width, height);
+                    Details details = new Details(history, accessoryHistory,width, height);
 
-                        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
-                            oos.writeObject(details);
-                            JOptionPane.showMessageDialog(null, "File saved");
-                        } catch (IOException ex) {
-                            JOptionPane.showMessageDialog(null, "Error saving file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                        }
+                    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
+                        oos.writeObject(details);
+                        JOptionPane.showMessageDialog(null, "File saved");
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "Error saving file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
         });
-        open.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == open){
-                    JFileChooser jfc = new JFileChooser();
+        open.addActionListener(e -> {
+            if (e.getSource() == open){
+                JFileChooser jfc = new JFileChooser();
 
-                    FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter("Crafted Spaces Projects","myext");
-                    jfc.setFileFilter(fileNameExtensionFilter);
+                FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter("Crafted Spaces Projects","myext");
+                jfc.setFileFilter(fileNameExtensionFilter);
 
-                    response = jfc.showOpenDialog(null);
-                    if (response == 0) {
-                        File fileToOpen;
+                response = jfc.showOpenDialog(null);
+                if (response == 0) {
+                    File fileToOpen;
 
-                        if(jfc.getSelectedFile().getName().endsWith(".myext")) {
-                            fileToOpen = jfc.getSelectedFile();
-                            Details dets;
+                    if(jfc.getSelectedFile().getName().endsWith(".myext")) {
+                        fileToOpen = jfc.getSelectedFile();
+                        Details dets;
 
-                            try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen.getPath()))) {
-                                history.clear();
-                                accessoryHistory.clear();
-                                CloseCurrentFrame();
-                                dets = (Details) ios.readObject();
-                                new Space_Page(dets.rooms, dets.accessories, dets.width, dets.height);
-                            } catch (IOException ex) {
-                                JOptionPane.showMessageDialog(null, "Unexpected Error opening file", "Unexpected Error", JOptionPane.ERROR_MESSAGE);
-                            } catch (ClassNotFoundException e1) {
-                                JOptionPane.showMessageDialog(null, "Incorrect file format", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
+                        try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen.getPath()))) {
+                            history.clear();
+                            accessoryHistory.clear();
+                            CloseCurrentFrame();
+                            dets = (Details) ios.readObject();
+                            new Space_Page(dets.rooms, dets.accessories, dets.width, dets.height);
+                        } catch (IOException ex) {
+                            JOptionPane.showMessageDialog(null, "Unexpected Error opening file", "Unexpected Error", JOptionPane.ERROR_MESSAGE);
+                        } catch (ClassNotFoundException e1) {
+                            JOptionPane.showMessageDialog(null, "Incorrect file format", "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                        else{
-                            JOptionPane.showMessageDialog(null,"Invalid File Type Selected","Error",JOptionPane.WARNING_MESSAGE);
-                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"Invalid File Type Selected","Error",JOptionPane.WARNING_MESSAGE);
                     }
                 }
             }
@@ -153,15 +152,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         kitchen = new JButton("Kitchen");
         kitchen.setBackground(new Color(255, 171, 171, 255));
-        kitchen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == kitchen) {
-                    Kitchen k= new Kitchen();
-                    pane.add(k, Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        kitchen.addActionListener(e -> {
+            if (e.getSource() == kitchen) {
+                Kitchen k= new Kitchen();
+                pane.add(k, Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         kitchen.setBorder(new MatteBorder(4,4,2,4, Color.black));
@@ -169,15 +165,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         drawingroom = new JButton("Drawing Room");
         drawingroom.setBackground(new Color(255, 218, 176, 255));
-        drawingroom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == drawingroom) {
-                    DrawingRoom dr = new DrawingRoom();
-                    pane.add(dr,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        drawingroom.addActionListener(e -> {
+            if (e.getSource() == drawingroom) {
+                DrawingRoom dr = new DrawingRoom();
+                pane.add(dr,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         drawingroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
@@ -185,15 +178,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         bathroom = new JButton("Bathroom");
         bathroom.setBackground(new Color(190, 236, 255, 255));
-        bathroom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == bathroom) {
-                    Bathroom b = new Bathroom();
-                    pane.add(b,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        bathroom.addActionListener(e -> {
+            if (e.getSource() == bathroom) {
+                Bathroom b = new Bathroom();
+                pane.add(b,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         bathroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
@@ -201,15 +191,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         sbedroom = new JButton("Small bedroom");
         sbedroom.setBackground(new Color(194, 255, 200, 255));
-        sbedroom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sbedroom) {
-                    Bedroom sb = new Bedroom(150,100,375);
-                    pane.add(sb,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        sbedroom.addActionListener(e -> {
+            if (e.getSource() == sbedroom) {
+                Bedroom sb = new Bedroom(150,100,375);
+                pane.add(sb,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         sbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
@@ -217,15 +204,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         lbedroom = new JButton("Large bedroom");
         lbedroom.setBackground(new Color(194, 255, 200, 255));
-        lbedroom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == lbedroom) {
-                    Bedroom lb = new Bedroom(150,100,475);
-                    pane.add(lb,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        lbedroom.addActionListener(e -> {
+            if (e.getSource() == lbedroom) {
+                Bedroom lb = new Bedroom(150,100,475);
+                pane.add(lb,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         lbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
@@ -233,15 +217,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         garage = new JButton("Garage");
         garage.setBackground(new Color(217, 189, 253, 255));
-        garage.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == garage) {
-                    Garage g = new Garage();
-                    pane.add(g,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        garage.addActionListener(e -> {
+            if (e.getSource() == garage) {
+                Garage g = new Garage();
+                pane.add(g,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         garage.setBorder(new MatteBorder(2,4,4,4, Color.black));
@@ -257,14 +238,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sbed.setBackground(new Color(255, 171, 171, 255));
         sbed.setBorder(new LineBorder(Color.black, 3));
         sbed.setIcon(icon1);
-        sbed.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sbed) {
-                    pane.add(new sbed(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sbed.addActionListener(e -> {
+            if (e.getSource() == sbed) {
+                pane.add(new sbed(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
 
@@ -274,14 +252,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         lbed.setBackground(new Color(255, 171, 171, 255));
         lbed.setBorder(new LineBorder(Color.black, 3));
         lbed.setIcon(icon2);
-        lbed.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == lbed) {
-                    pane.add(new lbed(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        lbed.addActionListener(e -> {
+            if (e.getSource() == lbed) {
+                pane.add(new lbed(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         lbed.setFocusable(false);
@@ -290,14 +265,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         shelf1.setBackground(new Color(255, 171, 171, 255));
         shelf1.setBorder(new LineBorder(Color.black, 3));
         shelf1.setIcon(icon3);
-        shelf1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == shelf1) {
-                    pane.add(new shelf1(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        shelf1.addActionListener(e -> {
+            if (e.getSource() == shelf1) {
+                pane.add(new shelf1(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         shelf1.setFocusable(false);
@@ -306,14 +278,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         shelf2.setBackground(new Color(255, 171, 171, 255));
         shelf2.setBorder(new LineBorder(Color.black, 3));
         shelf2.setIcon(icon4);
-        shelf2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == shelf2) {
-                    pane.add(new shelf2(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        shelf2.addActionListener(e -> {
+            if (e.getSource() == shelf2) {
+                pane.add(new shelf2(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         shelf2.setFocusable(false);
@@ -322,14 +291,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sofa1.setBackground(new Color(255, 171, 171, 255));
         sofa1.setBorder(new LineBorder(Color.black, 3));
         sofa1.setIcon(icon5);
-        sofa1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sofa1) {
-                    pane.add(new sofa1(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sofa1.addActionListener(e -> {
+            if (e.getSource() == sofa1) {
+                pane.add(new sofa1(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         sofa1.setFocusable(false);
@@ -338,14 +304,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sofa2.setBackground(new Color(255, 171, 171, 255));
         sofa2.setBorder(new LineBorder(Color.black, 3));
         sofa2.setIcon(icon6);
-        sofa2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sofa2) {
-                    pane.add(new sofa2(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sofa2.addActionListener(e -> {
+            if (e.getSource() == sofa2) {
+                pane.add(new sofa2(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         sofa2.setFocusable(false);
@@ -354,14 +317,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sofa3.setBackground(new Color(255, 171, 171, 255));
         sofa3.setBorder(new LineBorder(Color.black, 3));
         sofa3.setIcon(icon7);
-        sofa3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sofa3) {
-                    pane.add(new sofa3(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sofa3.addActionListener(e -> {
+            if (e.getSource() == sofa3) {
+                pane.add(new sofa3(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         sofa3.setFocusable(false);
@@ -370,14 +330,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         table.setBackground(new Color(255, 171, 171, 255));
         table.setBorder(new LineBorder(Color.black, 3));
         table.setIcon(icon8);
-        table.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == table) {
-                    pane.add(new table(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        table.addActionListener(e -> {
+            if (e.getSource() == table) {
+                pane.add(new table(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         table.setFocusable(false);
@@ -386,14 +343,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         desk.setBackground(new Color(255, 171, 171, 255));
         desk.setBorder(new LineBorder(Color.black, 3));
         desk.setIcon(icon9);
-        desk.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == desk) {
-                    pane.add(new desk(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        desk.addActionListener(e -> {
+            if (e.getSource() == desk) {
+                pane.add(new desk(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         desk.setFocusable(false);
@@ -402,14 +356,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         bath.setBackground(new Color(255, 171, 171, 255));
         bath.setBorder(new LineBorder(Color.black, 3));
         bath.setIcon(icon10);
-        bath.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == bath) {
-                    pane.add(new bath(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        bath.addActionListener(e -> {
+            if (e.getSource() == bath) {
+                pane.add(new bath(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         bath.setFocusable(false);
@@ -418,14 +369,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         urinal.setBackground(new Color(255, 171, 171, 255));
         urinal.setBorder(new LineBorder(Color.black, 3));
         urinal.setIcon(icon11);
-        urinal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == urinal) {
-                    pane.add(new urinal(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        urinal.addActionListener(e -> {
+            if (e.getSource() == urinal) {
+                pane.add(new urinal(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         urinal.setFocusable(false);
@@ -434,14 +382,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sink.setBackground(new Color(255, 171, 171, 255));
         sink.setBorder(new LineBorder(Color.black, 3));
         sink.setIcon(icon12);
-        sink.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sink) {
-                    pane.add(new sink(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sink.addActionListener(e -> {
+            if (e.getSource() == sink) {
+                pane.add(new sink(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         sink.setFocusable(false);
@@ -451,12 +396,9 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         door.setBackground(new Color(255, 171, 171, 255));
         door.setBorder(new LineBorder(Color.black, 3));
         door.setIcon(icon13);
-        door.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == door) {
-                    new door();
-                }
+        door.addActionListener(e -> {
+            if (e.getSource() == door) {
+                new door();
             }
         });
         door.setFocusable(false);
@@ -465,12 +407,9 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         window.setBackground(new Color(255, 171, 171, 255));
         window.setBorder(new LineBorder(Color.black, 3));
         window.setIcon(icon14);
-        window.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == window) {
-                    new window_comp();
-                }
+        window.addActionListener(e -> {
+            if (e.getSource() == window) {
+                new window_comp();
             }
         });
         window.setFocusable(false);
@@ -501,6 +440,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         this.setJMenuBar(menubar);
         this.add(rooms);
         this.add(accessories);
+        pane.add(outside, Integer.valueOf(0));
         pane.add(workspace, Integer.valueOf(1));
         this.add(pane);
         this.setVisible(true);
@@ -537,61 +477,56 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         file = new JMenu("File");
         save = new JMenuItem("Save");
         open = new JMenuItem("Open");
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == save){
-                    JFileChooser jfc = new JFileChooser();
+        save.addActionListener(e -> {
+            if (e.getSource() == save){
+                JFileChooser jfc = new JFileChooser();
 
-                    if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                        File fileToSave;
-                        if (jfc.getSelectedFile().getName().endsWith(".myext")) {
-                            fileToSave = jfc.getSelectedFile();
-                        }
-                        else{
-                            fileToSave = new File(jfc.getSelectedFile().getPath() + ".myext");
-                        }
+                if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave;
+                    if (jfc.getSelectedFile().getName().endsWith(".myext")) {
+                        fileToSave = jfc.getSelectedFile();
+                    }
+                    else{
+                        fileToSave = new File(jfc.getSelectedFile().getPath() + ".myext");
+                    }
 
-                        Details details = new Details(history, accessoryHistory,width, height);
+                    Details details = new Details(history, accessoryHistory,width, height);
 
-                        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
-                            oos.writeObject(details);
-                            JOptionPane.showMessageDialog(null, "File saved");
-                        } catch (IOException ex) {
-                            JOptionPane.showMessageDialog(null, "Error saving file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                        }
+                    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
+                        oos.writeObject(details);
+                        JOptionPane.showMessageDialog(null, "File saved");
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "Error saving file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
         });
-        open.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == open) {
-                    JFileChooser jfc = new JFileChooser();
-                    
-                    FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter("Crafted Spaces Projects","myext");
-                    jfc.setFileFilter(fileNameExtensionFilter);
+        open.addActionListener(
+                e -> {
+            if (e.getSource() == open) {
+                JFileChooser jfc = new JFileChooser();
 
-                    if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                        if (jfc.getSelectedFile().getName().endsWith(".myext")) {
-                            File fileToOpen = jfc.getSelectedFile();
+                FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter("Crafted Spaces Projects","myext");
+                jfc.setFileFilter(fileNameExtensionFilter);
 
-                            try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen))) {
-                                history.clear();
-                                accessoryHistory.clear();
-                                CloseCurrentFrame();
-                                Details dets = (Details) ios.readObject();
-                                new Space_Page(dets.rooms, dets.accessories, dets.width, dets.height);
-                            } catch (IOException ex) {
-                                JOptionPane.showMessageDialog(null, "Unexpected Error opening file", "Unexpected Error", JOptionPane.ERROR_MESSAGE);
-                            } catch (ClassNotFoundException e1) {
-                                JOptionPane.showMessageDialog(null, "Incorrect file format", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
+                if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    if (jfc.getSelectedFile().getName().endsWith(".myext")) {
+                        File fileToOpen = jfc.getSelectedFile();
+
+                        try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen))) {
+                            history.clear();
+                            accessoryHistory.clear();
+                            CloseCurrentFrame();
+                            Details dets = (Details) ios.readObject();
+                            new Space_Page(dets.rooms, dets.accessories, dets.width, dets.height);
+                        } catch (IOException ex) {
+                            JOptionPane.showMessageDialog(null, "Unexpected Error opening file", "Unexpected Error", JOptionPane.ERROR_MESSAGE);
+                        } catch (ClassNotFoundException e1) {
+                            JOptionPane.showMessageDialog(null, "Incorrect file format", "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                        else{
-                            JOptionPane.showMessageDialog(null,"Invalid File Type Selected", "Error", JOptionPane.WARNING_MESSAGE);
-                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"Invalid File Type Selected", "Error", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             }
@@ -606,15 +541,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         kitchen = new JButton("Kitchen");
         kitchen.setBackground(new Color(255, 171, 171, 255));
-        kitchen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == kitchen) {
-                    Kitchen k= new Kitchen();
-                    pane.add(k, Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        kitchen.addActionListener(e -> {
+            if (e.getSource() == kitchen) {
+                Kitchen k= new Kitchen();
+                pane.add(k, Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         kitchen.setBorder(new MatteBorder(4,4,2,4, Color.black));
@@ -622,15 +554,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         drawingroom = new JButton("Drawing Room");
         drawingroom.setBackground(new Color(255, 218, 176, 255));
-        drawingroom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == drawingroom) {
-                    DrawingRoom dr = new DrawingRoom();
-                    pane.add(dr,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        drawingroom.addActionListener(e -> {
+            if (e.getSource() == drawingroom) {
+                DrawingRoom dr = new DrawingRoom();
+                pane.add(dr,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         drawingroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
@@ -638,15 +567,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         bathroom = new JButton("Bathroom");
         bathroom.setBackground(new Color(190, 236, 255, 255));
-        bathroom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == bathroom) {
-                    Bathroom b = new Bathroom();
-                    pane.add(b,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        bathroom.addActionListener(e -> {
+            if (e.getSource() == bathroom) {
+                Bathroom b = new Bathroom();
+                pane.add(b,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         bathroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
@@ -654,15 +580,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         sbedroom = new JButton("Small bedroom");
         sbedroom.setBackground(new Color(194, 255, 200, 255));
-        sbedroom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sbedroom) {
-                    Bedroom sb = new Bedroom(150,100,375);
-                    pane.add(sb,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        sbedroom.addActionListener(e -> {
+            if (e.getSource() == sbedroom) {
+                Bedroom sb = new Bedroom(150,100,375);
+                pane.add(sb,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         sbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
@@ -670,15 +593,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         lbedroom = new JButton("Large bedroom");
         lbedroom.setBackground(new Color(194, 255, 200, 255));
-        lbedroom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == lbedroom) {
-                    Bedroom lb = new Bedroom(150,100,475);
-                    pane.add(lb,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        lbedroom.addActionListener(e -> {
+            if (e.getSource() == lbedroom) {
+                Bedroom lb = new Bedroom(150,100,475);
+                pane.add(lb,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         lbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
@@ -686,15 +606,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
         garage = new JButton("Garage");
         garage.setBackground(new Color(217, 189, 253, 255));
-        garage.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == garage) {
-                    Garage g = new Garage();
-                    pane.add(g,Integer.valueOf(2));
-                    revalidate();
-                    repaint();
-                }
+        garage.addActionListener(e -> {
+            if (e.getSource() == garage) {
+                Garage g = new Garage();
+                pane.add(g,Integer.valueOf(2));
+                revalidate();
+                repaint();
             }
         });
         garage.setBorder(new MatteBorder(2,4,4,4, Color.black));
@@ -721,14 +638,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sbed.setBackground(new Color(255, 171, 171, 255));
         sbed.setBorder(new LineBorder(Color.black, 3));
         sbed.setIcon(icon1);
-        sbed.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sbed) {
-                    pane.add(new sbed(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sbed.addActionListener(e -> {
+            if (e.getSource() == sbed) {
+                pane.add(new sbed(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
 
@@ -738,14 +652,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         lbed.setBackground(new Color(255, 171, 171, 255));
         lbed.setBorder(new LineBorder(Color.black, 3));
         lbed.setIcon(icon2);
-        lbed.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == lbed) {
-                    pane.add(new lbed(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        lbed.addActionListener(e -> {
+            if (e.getSource() == lbed) {
+                pane.add(new lbed(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         lbed.setFocusable(false);
@@ -754,14 +665,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         shelf1.setBackground(new Color(255, 171, 171, 255));
         shelf1.setBorder(new LineBorder(Color.black, 3));
         shelf1.setIcon(icon3);
-        shelf1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == shelf1) {
-                    pane.add(new shelf1(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        shelf1.addActionListener(e -> {
+            if (e.getSource() == shelf1) {
+                pane.add(new shelf1(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         shelf1.setFocusable(false);
@@ -770,14 +678,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         shelf2.setBackground(new Color(255, 171, 171, 255));
         shelf2.setBorder(new LineBorder(Color.black, 3));
         shelf2.setIcon(icon4);
-        shelf2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == shelf2) {
-                    pane.add(new shelf2(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        shelf2.addActionListener(e -> {
+            if (e.getSource() == shelf2) {
+                pane.add(new shelf2(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         shelf2.setFocusable(false);
@@ -786,14 +691,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sofa1.setBackground(new Color(255, 171, 171, 255));
         sofa1.setBorder(new LineBorder(Color.black, 3));
         sofa1.setIcon(icon5);
-        sofa1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sofa1) {
-                    pane.add(new sofa1(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sofa1.addActionListener(e -> {
+            if (e.getSource() == sofa1) {
+                pane.add(new sofa1(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         sofa1.setFocusable(false);
@@ -802,14 +704,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sofa2.setBackground(new Color(255, 171, 171, 255));
         sofa2.setBorder(new LineBorder(Color.black, 3));
         sofa2.setIcon(icon6);
-        sofa2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sofa2) {
-                    pane.add(new sofa2(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sofa2.addActionListener(e -> {
+            if (e.getSource() == sofa2) {
+                pane.add(new sofa2(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         sofa2.setFocusable(false);
@@ -818,14 +717,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sofa3.setBackground(new Color(255, 171, 171, 255));
         sofa3.setBorder(new LineBorder(Color.black, 3));
         sofa3.setIcon(icon7);
-        sofa3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sofa3) {
-                    pane.add(new sofa3(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sofa3.addActionListener(e -> {
+            if (e.getSource() == sofa3) {
+                pane.add(new sofa3(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         sofa3.setFocusable(false);
@@ -834,14 +730,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         table.setBackground(new Color(255, 171, 171, 255));
         table.setBorder(new LineBorder(Color.black, 3));
         table.setIcon(icon8);
-        table.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == table) {
-                    pane.add(new table(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        table.addActionListener(e -> {
+            if (e.getSource() == table) {
+                pane.add(new table(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         table.setFocusable(false);
@@ -850,14 +743,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         desk.setBackground(new Color(255, 171, 171, 255));
         desk.setBorder(new LineBorder(Color.black, 3));
         desk.setIcon(icon9);
-        desk.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == desk) {
-                    pane.add(new desk(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        desk.addActionListener(e -> {
+            if (e.getSource() == desk) {
+                pane.add(new desk(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         desk.setFocusable(false);
@@ -866,14 +756,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         bath.setBackground(new Color(255, 171, 171, 255));
         bath.setBorder(new LineBorder(Color.black, 3));
         bath.setIcon(icon10);
-        bath.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == bath) {
-                    pane.add(new bath(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        bath.addActionListener(e -> {
+            if (e.getSource() == bath) {
+                pane.add(new bath(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         bath.setFocusable(false);
@@ -882,14 +769,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         urinal.setBackground(new Color(255, 171, 171, 255));
         urinal.setBorder(new LineBorder(Color.black, 3));
         urinal.setIcon(icon11);
-        urinal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == urinal) {
-                    pane.add(new urinal(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        urinal.addActionListener(e -> {
+            if (e.getSource() == urinal) {
+                pane.add(new urinal(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         urinal.setFocusable(false);
@@ -898,14 +782,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sink.setBackground(new Color(255, 171, 171, 255));
         sink.setBorder(new LineBorder(Color.black, 3));
         sink.setIcon(icon12);
-        sink.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == sink) {
-                    pane.add(new sink(), Integer.valueOf(3));
-                    revalidate();
-                    repaint();
-                }
+        sink.addActionListener(e -> {
+            if (e.getSource() == sink) {
+                pane.add(new sink(), Integer.valueOf(3));
+                revalidate();
+                repaint();
             }
         });
         sink.setFocusable(false);
@@ -915,12 +796,9 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         door.setBackground(new Color(255, 171, 171, 255));
         door.setBorder(new LineBorder(Color.black, 3));
         door.setIcon(icon13);
-        door.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == door) {
-                    new door();
-                }
+        door.addActionListener(e -> {
+            if (e.getSource() == door) {
+                new door();
             }
         });
         door.setFocusable(false);
@@ -929,12 +807,9 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         window.setBackground(new Color(255, 171, 171, 255));
         window.setBorder(new LineBorder(Color.black, 3));
         window.setIcon(icon14);
-        window.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == window) {
-                    new window_comp();
-                }
+        window.addActionListener(e -> {
+            if (e.getSource() == window) {
+                new window_comp();
             }
         });
         window.setFocusable(false);
