@@ -14,9 +14,10 @@ public class SizePage extends JFrame implements ActionListener{
     JButton size3;
 
     SizePage(){
-        this.setSize(1000,1000);          //making the frame
+        this.setSize(2000,1000);          //making the frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(new Color(27, 108, 54));
+        this.setResizable(false);
         this.setLayout(null);
         this.setVisible(true);
 
