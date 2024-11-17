@@ -47,6 +47,29 @@ public class Accessories extends JLabel implements MouseListener, MouseMotionLis
             }
         }
 
+        for( Room rooms: history ) {
+            if(this.getX() < rooms.getX() + rooms.width && this.getX() + this.breadth > rooms.getX() + rooms.width )
+            {
+                JOptionPane.showMessageDialog(null,"Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
+                this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
+            }
+            if(this.getY() < rooms.getY() + rooms.height && this.getY() + this.length > rooms.getY() + rooms.height )
+            {
+                JOptionPane.showMessageDialog(null,"Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
+                this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
+            }
+            if(this.getX()< rooms.getX() && this.getX() + this.breadth > rooms.getX() )
+            {
+                JOptionPane.showMessageDialog(null,"Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
+                this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
+            }
+            if(this.getY()< rooms.getY() && this.getY() + this.length > rooms.getY() )
+            {
+                JOptionPane.showMessageDialog(null,"Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
+                this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
+            }
+        }
+
         finalpt = this.getLocation();
     }
 
