@@ -69,15 +69,15 @@ public class SizePage extends JFrame implements ActionListener{
     {
         if(e.getSource()==size1)
         {
-            new Space_Page(20,30);
+            new Space_Page(30,20);
         }
         if(e.getSource()==size2)
         {
-            new Space_Page(30,50);
+            new Space_Page(50,30);
         }
         if(e.getSource()==size3)
         {
-            new Space_Page(40,60);
+            new Space_Page(60,40);
         }
     }
 }
