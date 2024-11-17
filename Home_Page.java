@@ -17,10 +17,10 @@ public class Home_Page extends JFrame implements ActionListener
     Home_Page()
     {
         this.setVisible(true);
-        this.setSize(2000,100);
+        this.setSize(2000,1000);
         this.setTitle("Home Page");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        this.setResizable(false);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
