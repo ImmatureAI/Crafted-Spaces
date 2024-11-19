@@ -11,7 +11,7 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
     Point finalpt;
     int width,height;
     static int numberofrooms=0;
-    int spacewidth, spaceheight;;
+    int spacewidth, spaceheight;
 
     Room(int spacewidth, int spaceheight)
     {
