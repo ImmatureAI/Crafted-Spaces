@@ -11,13 +11,19 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
     Point finalpt;
     int width,height;
     static int numberofrooms=0;
+    int spacewidth, spaceheight;;
 
-    Room()
+    Room(int spacewidth, int spaceheight)
     {
         history.add(this);
+        this.spacewidth = spacewidth;
+        this.spaceheight = spaceheight;
         this.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        JLabel label = new JLabel();
+        label.setText(String.valueOf(numberofrooms+1));
+        this.add(label);
         this.setOpaque(true);
         numberofrooms++;
     }
@@ -59,6 +65,14 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
                 }
             }
         }
+        Rectangle work = new Rectangle(800 - (5 * this.spacewidth), 400 - (5 * this.spaceheight), 10 * spacewidth, 10 * spaceheight);
+        Rectangle outside = new Rectangle(700-(5*this.spacewidth), 300-(5*this.spaceheight), 10*this.spacewidth+200, 10*this.spaceheight+200);
+        if(outside.contains(this.getBounds())){
+            if(!work.contains(this.getBounds())){
+                JOptionPane.showMessageDialog(null,"Room is outside the house", "ERROR", JOptionPane.WARNING_MESSAGE);
+                this.setBounds(initialpoint.x, initialpoint.y, this.width, this.height);
+            }
+        }
         finalpt = this.getLocation();
     }
 
@@ -87,8 +101,9 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
 
 class Kitchen extends Room
 {
-    Kitchen()
+    Kitchen(int spacewidth, int spaceheight)
     {
+        super(spacewidth,spaceheight);
         width = 150;
         height = 100;
         this.setBounds(1230,75,width,height);
@@ -97,18 +112,20 @@ class Kitchen extends Room
 }
 class Bathroom extends Room
 {
-    Bathroom()
+    Bathroom(int spacewidth, int spaceheight)
     {
+        super(spacewidth,spaceheight);
         width = 150;
         height = 100;
-        this.setBounds(1230,350,width,height);
+        this.setBounds(1230,275,width,height);
         this.setBackground(new Color(190, 236, 255, 255));
     }
 }
 class DrawingRoom extends Room
 {
-    DrawingRoom()
+    DrawingRoom(int spacewidth, int spaceheight)
     {
+        super(spacewidth,spaceheight);
         width = 150;
         height = 100;
         this.setBounds(1230,175,width,height);
@@ -117,8 +134,9 @@ class DrawingRoom extends Room
 }
 class Garage extends Room
 {
-    Garage()
+    Garage(int spacewidth, int spaceheight)
     {
+        super(spacewidth,spaceheight);
         width = 150;
         height = 100;
         this.setBounds(1230,575,width,height);
@@ -127,8 +145,9 @@ class Garage extends Room
 }
 class Bedroom extends Room
 {
-    Bedroom(int width, int height, int y)
+    Bedroom(int width, int height, int y, int spacewidth, int spaceheight)
     {
+        super(spacewidth, spaceheight);
         this.width = width;
         this.height = height;
         this.setBounds(1230,y,width,height);
