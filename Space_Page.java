@@ -154,8 +154,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         kitchen.setBackground(new Color(255, 171, 171, 255));
         kitchen.addActionListener(e -> {
             if (e.getSource() == kitchen) {
-                Kitchen k= new Kitchen();
-                pane.add(k, Integer.valueOf(2));
+                pane.add(new Kitchen(width,height), Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -167,8 +166,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         drawingroom.setBackground(new Color(255, 218, 176, 255));
         drawingroom.addActionListener(e -> {
             if (e.getSource() == drawingroom) {
-                DrawingRoom dr = new DrawingRoom();
-                pane.add(dr,Integer.valueOf(2));
+                pane.add(new DrawingRoom(width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -180,8 +178,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         bathroom.setBackground(new Color(190, 236, 255, 255));
         bathroom.addActionListener(e -> {
             if (e.getSource() == bathroom) {
-                Bathroom b = new Bathroom();
-                pane.add(b,Integer.valueOf(2));
+                pane.add(new Bathroom(width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -193,8 +190,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sbedroom.setBackground(new Color(194, 255, 200, 255));
         sbedroom.addActionListener(e -> {
             if (e.getSource() == sbedroom) {
-                Bedroom sb = new Bedroom(150,100,375);
-                pane.add(sb,Integer.valueOf(2));
+                pane.add(new Bedroom(150,100,375,width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -206,8 +202,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         lbedroom.setBackground(new Color(194, 255, 200, 255));
         lbedroom.addActionListener(e -> {
             if (e.getSource() == lbedroom) {
-                Bedroom lb = new Bedroom(150,100,475);
-                pane.add(lb,Integer.valueOf(2));
+                pane.add(new Bedroom(150,100,475,width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -219,8 +214,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         garage.setBackground(new Color(217, 189, 253, 255));
         garage.addActionListener(e -> {
             if (e.getSource() == garage) {
-                Garage g = new Garage();
-                pane.add(g,Integer.valueOf(2));
+                pane.add(new Garage(width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -543,8 +537,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         kitchen.setBackground(new Color(255, 171, 171, 255));
         kitchen.addActionListener(e -> {
             if (e.getSource() == kitchen) {
-                Kitchen k= new Kitchen();
-                pane.add(k, Integer.valueOf(2));
+                pane.add(new Kitchen(width,height), Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -556,8 +549,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         drawingroom.setBackground(new Color(255, 218, 176, 255));
         drawingroom.addActionListener(e -> {
             if (e.getSource() == drawingroom) {
-                DrawingRoom dr = new DrawingRoom();
-                pane.add(dr,Integer.valueOf(2));
+                pane.add(new DrawingRoom(width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -569,8 +561,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         bathroom.setBackground(new Color(190, 236, 255, 255));
         bathroom.addActionListener(e -> {
             if (e.getSource() == bathroom) {
-                Bathroom b = new Bathroom();
-                pane.add(b,Integer.valueOf(2));
+                pane.add(new Bathroom(width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -582,8 +573,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sbedroom.setBackground(new Color(194, 255, 200, 255));
         sbedroom.addActionListener(e -> {
             if (e.getSource() == sbedroom) {
-                Bedroom sb = new Bedroom(150,100,375);
-                pane.add(sb,Integer.valueOf(2));
+                pane.add(new Bedroom(150,100,375,width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -595,8 +585,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         lbedroom.setBackground(new Color(194, 255, 200, 255));
         lbedroom.addActionListener(e -> {
             if (e.getSource() == lbedroom) {
-                Bedroom lb = new Bedroom(150,100,475);
-                pane.add(lb,Integer.valueOf(2));
+                pane.add(new Bedroom(150,100,475,width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
@@ -608,8 +597,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         garage.setBackground(new Color(217, 189, 253, 255));
         garage.addActionListener(e -> {
             if (e.getSource() == garage) {
-                Garage g = new Garage();
-                pane.add(g,Integer.valueOf(2));
+                pane.add(new Garage(width,height),Integer.valueOf(2));
                 revalidate();
                 repaint();
             }
