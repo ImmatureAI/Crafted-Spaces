@@ -23,8 +23,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
     JButton kitchen;
     JButton drawingroom;
     JButton bathroom;
-    JButton sbedroom;
-    JButton lbedroom;
+    JButton bedroom;
 
     JButton sbed;
     JButton lbed;
@@ -73,8 +72,8 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(1380, 75, 150, 600);
-        rooms.setLayout(new GridLayout(6, 1));
+        rooms.setBounds(180, 75, 150, 500);
+        rooms.setLayout(new GridLayout(5, 1));
 
         menubar = new JMenuBar();
         file = new JMenu("File");
@@ -154,9 +153,16 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         kitchen.setBackground(new Color(255, 171, 171, 255));
         kitchen.addActionListener(e -> {
             if (e.getSource() == kitchen) {
-                pane.add(new Kitchen(width,height), Integer.valueOf(2));
-                revalidate();
-                repaint();
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new Kitchen(a, b, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
+
+                }
             }
         });
         kitchen.setBorder(new MatteBorder(4,4,2,4, Color.black));
@@ -166,9 +172,16 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         drawingroom.setBackground(new Color(255, 218, 176, 255));
         drawingroom.addActionListener(e -> {
             if (e.getSource() == drawingroom) {
-                pane.add(new DrawingRoom(width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new DrawingRoom(a, b, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
+
+                }
             }
         });
         drawingroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
@@ -178,45 +191,54 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         bathroom.setBackground(new Color(190, 236, 255, 255));
         bathroom.addActionListener(e -> {
             if (e.getSource() == bathroom) {
-                pane.add(new Bathroom(width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new Bathroom(a, b, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
+
+                }
             }
         });
         bathroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
         bathroom.setFocusable(false);
 
-        sbedroom = new JButton("Small bedroom");
-        sbedroom.setBackground(new Color(194, 255, 200, 255));
-        sbedroom.addActionListener(e -> {
-            if (e.getSource() == sbedroom) {
-                pane.add(new Bedroom(150,100,375,width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
-            }
-        });
-        sbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
-        sbedroom.setFocusable(false);
+        bedroom = new JButton("Bedroom");
+        bedroom.setBackground(new Color(194, 255, 200, 255));
+        bedroom.addActionListener(e -> {
+            if (e.getSource() == bedroom) {
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new Bedroom(a, b, 475, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
 
-        lbedroom = new JButton("Large bedroom");
-        lbedroom.setBackground(new Color(194, 255, 200, 255));
-        lbedroom.addActionListener(e -> {
-            if (e.getSource() == lbedroom) {
-                pane.add(new Bedroom(150,100,475,width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
+                }
             }
         });
-        lbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
-        lbedroom.setFocusable(false);
+        bedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
+        bedroom.setFocusable(false);
 
         garage = new JButton("Garage");
         garage.setBackground(new Color(217, 189, 253, 255));
         garage.addActionListener(e -> {
             if (e.getSource() == garage) {
-                pane.add(new Garage(width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new Garage(a, b, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
+
+                }
             }
         });
         garage.setBorder(new MatteBorder(2,4,4,4, Color.black));
@@ -427,8 +449,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         rooms.add(kitchen);
         rooms.add(drawingroom);
         rooms.add(bathroom);
-        rooms.add(sbedroom);
-        rooms.add(lbedroom);
+        rooms.add(bedroom);
         rooms.add(garage);
 
         this.setJMenuBar(menubar);
@@ -447,7 +468,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         this.setLayout(null);
         this.setSize(2000, 1000);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        this.setResizable(false);
         this.getContentPane().setBackground(new Color(27, 108, 54));
 
         pane = new JLayeredPane();
@@ -459,13 +480,19 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         workspace.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         workspace.setOpaque(true);
 
+        outside = new JPanel();
+        outside.setBounds(700-(5*width), 300-(5*height), 10*width+200, 10*height+200);
+        outside.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        outside.setBackground(new Color(181, 181, 181, 187));
+        outside.setOpaque(true);
+
         accessories = new JPanel();
         accessories.setBounds(0, 75, 200, 700);
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(180, 75, 150, 600);
-        rooms.setLayout(new GridLayout(6, 1));
+        rooms.setBounds(180, 75, 150, 500);
+        rooms.setLayout(new GridLayout(5, 1));
 
         menubar = new JMenuBar();
         file = new JMenu("File");
@@ -475,9 +502,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
             if (e.getSource() == save){
                 JFileChooser jfc = new JFileChooser();
 
-                if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                int response = jfc.showSaveDialog(null);
+
+                if(response == JFileChooser.APPROVE_OPTION) {
                     File fileToSave;
-                    if (jfc.getSelectedFile().getName().endsWith(".myext")) {
+
+                    if(jfc.getSelectedFile().getName().endsWith(".myext")){
                         fileToSave = jfc.getSelectedFile();
                     }
                     else{
@@ -495,23 +525,26 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
                 }
             }
         });
-        open.addActionListener(
-                e -> {
-            if (e.getSource() == open) {
+        open.addActionListener(e -> {
+            if (e.getSource() == open){
                 JFileChooser jfc = new JFileChooser();
 
                 FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter("Crafted Spaces Projects","myext");
                 jfc.setFileFilter(fileNameExtensionFilter);
 
-                if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    if (jfc.getSelectedFile().getName().endsWith(".myext")) {
-                        File fileToOpen = jfc.getSelectedFile();
+                response = jfc.showOpenDialog(null);
+                if (response == 0) {
+                    File fileToOpen;
 
-                        try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen))) {
+                    if(jfc.getSelectedFile().getName().endsWith(".myext")) {
+                        fileToOpen = jfc.getSelectedFile();
+                        Details dets;
+
+                        try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream(fileToOpen.getPath()))) {
                             history.clear();
                             accessoryHistory.clear();
                             CloseCurrentFrame();
-                            Details dets = (Details) ios.readObject();
+                            dets = (Details) ios.readObject();
                             new Space_Page(dets.rooms, dets.accessories, dets.width, dets.height);
                         } catch (IOException ex) {
                             JOptionPane.showMessageDialog(null, "Unexpected Error opening file", "Unexpected Error", JOptionPane.ERROR_MESSAGE);
@@ -520,90 +553,18 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
                         }
                     }
                     else{
-                        JOptionPane.showMessageDialog(null,"Invalid File Type Selected", "Error", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"Invalid File Type Selected","Error",JOptionPane.WARNING_MESSAGE);
                     }
                 }
             }
         });
 
+
+
         file.add(save);
         file.add(open);
         menubar.add(file);
         this.setJMenuBar(menubar);
-
-        //rooms
-
-        kitchen = new JButton("Kitchen");
-        kitchen.setBackground(new Color(255, 171, 171, 255));
-        kitchen.addActionListener(e -> {
-            if (e.getSource() == kitchen) {
-                pane.add(new Kitchen(width,height), Integer.valueOf(2));
-                revalidate();
-                repaint();
-            }
-        });
-        kitchen.setBorder(new MatteBorder(4,4,2,4, Color.black));
-        kitchen.setFocusable(false);
-
-        drawingroom = new JButton("Drawing Room");
-        drawingroom.setBackground(new Color(255, 218, 176, 255));
-        drawingroom.addActionListener(e -> {
-            if (e.getSource() == drawingroom) {
-                pane.add(new DrawingRoom(width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
-            }
-        });
-        drawingroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
-        drawingroom.setFocusable(false);
-
-        bathroom = new JButton("Bathroom");
-        bathroom.setBackground(new Color(190, 236, 255, 255));
-        bathroom.addActionListener(e -> {
-            if (e.getSource() == bathroom) {
-                pane.add(new Bathroom(width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
-            }
-        });
-        bathroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
-        bathroom.setFocusable(false);
-
-        sbedroom = new JButton("Small bedroom");
-        sbedroom.setBackground(new Color(194, 255, 200, 255));
-        sbedroom.addActionListener(e -> {
-            if (e.getSource() == sbedroom) {
-                pane.add(new Bedroom(150,100,375,width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
-            }
-        });
-        sbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
-        sbedroom.setFocusable(false);
-
-        lbedroom = new JButton("Large bedroom");
-        lbedroom.setBackground(new Color(194, 255, 200, 255));
-        lbedroom.addActionListener(e -> {
-            if (e.getSource() == lbedroom) {
-                pane.add(new Bedroom(150,100,475,width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
-            }
-        });
-        lbedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
-        lbedroom.setFocusable(false);
-
-        garage = new JButton("Garage");
-        garage.setBackground(new Color(217, 189, 253, 255));
-        garage.addActionListener(e -> {
-            if (e.getSource() == garage) {
-                pane.add(new Garage(width,height),Integer.valueOf(2));
-                revalidate();
-                repaint();
-            }
-        });
-        garage.setBorder(new MatteBorder(2,4,4,4, Color.black));
-        garage.setFocusable(false);
 
         //constructing the opened file
 
@@ -618,6 +579,106 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
             pane.add(a,Integer.valueOf(3));
             accessoryHistory.add(a);
         }
+
+        //rooms
+
+        kitchen = new JButton("Kitchen");
+        kitchen.setBackground(new Color(255, 171, 171, 255));
+        kitchen.addActionListener(e -> {
+            if (e.getSource() == kitchen) {
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new Kitchen(a, b, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
+
+                }
+            }
+        });
+        kitchen.setBorder(new MatteBorder(4,4,2,4, Color.black));
+        kitchen.setFocusable(false);
+
+        drawingroom = new JButton("Drawing Room");
+        drawingroom.setBackground(new Color(255, 218, 176, 255));
+        drawingroom.addActionListener(e -> {
+            if (e.getSource() == drawingroom) {
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new DrawingRoom(a, b, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
+
+                }
+            }
+        });
+        drawingroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
+        drawingroom.setFocusable(false);
+
+        bathroom = new JButton("Bathroom");
+        bathroom.setBackground(new Color(190, 236, 255, 255));
+        bathroom.addActionListener(e -> {
+            if (e.getSource() == bathroom) {
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new Bathroom(a, b, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
+
+                }
+            }
+        });
+        bathroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
+        bathroom.setFocusable(false);
+
+        bedroom = new JButton("Bedroom");
+        bedroom.setBackground(new Color(194, 255, 200, 255));
+        bedroom.addActionListener(e -> {
+            if (e.getSource() == bedroom) {
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new Bedroom(a, b, 475, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
+
+                }
+            }
+        });
+        bedroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
+        bedroom.setFocusable(false);
+
+        garage = new JButton("Garage");
+        garage.setBackground(new Color(217, 189, 253, 255));
+        garage.addActionListener(e -> {
+            if (e.getSource() == garage) {
+                try {
+                    int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
+                    int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
+                    pane.add(new Garage(a, b, width, height), Integer.valueOf(2));
+                    revalidate();
+                    repaint();
+                }
+                catch(Exception ex){
+
+                }
+            }
+        });
+        garage.setBorder(new MatteBorder(2,4,4,4, Color.black));
+        garage.setFocusable(false);
+
+
+
 
 
         //accessories
@@ -821,13 +882,13 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         rooms.add(kitchen);
         rooms.add(drawingroom);
         rooms.add(bathroom);
-        rooms.add(sbedroom);
-        rooms.add(lbedroom);
+        rooms.add(bedroom);
         rooms.add(garage);
 
         this.setJMenuBar(menubar);
         this.add(rooms);
         this.add(accessories);
+        pane.add(outside, Integer.valueOf(0));
         pane.add(workspace, Integer.valueOf(1));
         this.add(pane);
         this.setVisible(true);
