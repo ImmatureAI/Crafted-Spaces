@@ -33,13 +33,7 @@ public class Accessories extends JLabel implements MouseListener, MouseMotionLis
     @Override
     public void mouseReleased(MouseEvent e) {
         for(Accessories a: accessoryHistory) {
-            if(this.getX()>a.getX() && this.getX()< a.getX()+a.breadth){
-                if((this.getY()>a.getY() && this.getY()<a.getY()+a.length) || (this.getY()+this.length>a.getY() && this.getY()+this.length<a.getY()+a.length)){
-                    JOptionPane.showMessageDialog(null,"Overlap", "ERROR", JOptionPane.WARNING_MESSAGE);
-                    this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
-                }
-            }
-            if(this.getX()+this.breadth>a.getX() && this.getX()+this.breadth < a.getX()+a.breadth){
+            if((this.getX()>a.getX() && this.getX()< a.getX()+a.breadth) || (this.getX()+this.breadth>a.getX() && this.getX()+this.breadth < a.getX()+a.breadth)){
                 if((this.getY()>a.getY() && this.getY()<a.getY()+a.length) || (this.getY()+this.length>a.getY() && this.getY()+this.length<a.getY()+a.length)){
                     JOptionPane.showMessageDialog(null,"Overlap", "ERROR", JOptionPane.WARNING_MESSAGE);
                     this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
@@ -47,12 +41,20 @@ public class Accessories extends JLabel implements MouseListener, MouseMotionLis
             }
         }
 
+
+
         for( Room rooms: history ) {
-            if((this.getX() < rooms.getX() + rooms.width && this.getX() + this.breadth > rooms.getX() + rooms.width) || (this.getX()< rooms.getX() && this.getX() + this.breadth > rooms.getX()))
+            boolean a = ((this.getX() < rooms.getX() + rooms.width)  &&  (this.getX() > rooms.getX()));
+            boolean b = ((this.getX() + this.breadth < rooms.getX() + rooms.width) && (this.getX() + this.breadth > rooms.getX()));
+            boolean c = ((this.getY() < rooms.getY() + rooms.height)  &&  (this.getY() > rooms.getY()));
+            boolean d = ((this.getY() + this.length < rooms.getY() + rooms.height) && (this.getY() + this.length > rooms.getY()));
+            if(a || b)
             {
-                if((this.getY() < rooms.getY() + rooms.height && this.getY() + this.length > rooms.getY() + rooms.height)||(this.getY()< rooms.getY() && this.getY() + this.length > rooms.getY())) {
-                    JOptionPane.showMessageDialog(null, "Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
-                    this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
+                if(c || d) {
+                    if(!(a && b && c && d)) {
+                        JOptionPane.showMessageDialog(null, "Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
+                        this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
+                    }
                 }
             }
         }
