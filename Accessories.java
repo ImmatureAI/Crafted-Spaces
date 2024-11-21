@@ -48,25 +48,12 @@ public class Accessories extends JLabel implements MouseListener, MouseMotionLis
         }
 
         for( Room rooms: history ) {
-            if(this.getX() < rooms.getX() + rooms.width && this.getX() + this.breadth > rooms.getX() + rooms.width )
+            if((this.getX() < rooms.getX() + rooms.width && this.getX() + this.breadth > rooms.getX() + rooms.width) || (this.getX()< rooms.getX() && this.getX() + this.breadth > rooms.getX()))
             {
-                JOptionPane.showMessageDialog(null,"Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
-                this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
-            }
-            if(this.getY() < rooms.getY() + rooms.height && this.getY() + this.length > rooms.getY() + rooms.height )
-            {
-                JOptionPane.showMessageDialog(null,"Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
-                this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
-            }
-            if(this.getX()< rooms.getX() && this.getX() + this.breadth > rooms.getX() )
-            {
-                JOptionPane.showMessageDialog(null,"Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
-                this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
-            }
-            if(this.getY()< rooms.getY() && this.getY() + this.length > rooms.getY() )
-            {
-                JOptionPane.showMessageDialog(null,"Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
-                this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
+                if((this.getY() < rooms.getY() + rooms.height && this.getY() + this.length > rooms.getY() + rooms.height)||(this.getY()< rooms.getY() && this.getY() + this.length > rooms.getY())) {
+                    JOptionPane.showMessageDialog(null, "Object cannot be placed between rooms", "ERROR", JOptionPane.WARNING_MESSAGE);
+                    this.setBounds(initialpt.x, initialpt.y, this.breadth, this.length);
+                }
             }
         }
 
@@ -111,7 +98,7 @@ class sbed extends furniture
     {
         length = icon1.getIconHeight();
         breadth = icon1.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon1);
     }
 
@@ -122,7 +109,7 @@ class lbed extends furniture
     {
         length = icon2.getIconHeight();
         breadth = icon2.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon2);
     }
 }
@@ -132,7 +119,7 @@ class shelf1 extends furniture
     {
         length = icon3.getIconHeight();
         breadth = icon3.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon3);
     }
 }
@@ -143,7 +130,7 @@ class shelf2 extends furniture
         length = icon4.getIconHeight();
         breadth = icon4.getIconWidth();
 
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon4);
     }
 }
@@ -153,7 +140,7 @@ class sofa1 extends furniture
     {
         length = icon5.getIconHeight();
         breadth = icon5.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon5);
     }
 }
@@ -163,7 +150,7 @@ class sofa2 extends furniture
     {
         length = icon6.getIconHeight();
         breadth = icon6.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon6);
     }
 }
@@ -173,7 +160,7 @@ class sofa3 extends furniture
     {
         length = icon7.getIconHeight();
         breadth = icon7.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon7);
     }
 }
@@ -183,7 +170,7 @@ class table extends furniture
     {
         length = icon8.getIconHeight();
         breadth = icon8.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon8);
     }
 }
@@ -193,7 +180,7 @@ class desk extends furniture
     {
         length = icon9.getIconHeight();
         breadth = icon9.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon9);
     }
 }
@@ -203,7 +190,7 @@ class bath extends furniture
     {
         length = icon10.getIconHeight();
         breadth = icon10.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon10);
     }
 }
@@ -213,7 +200,7 @@ class urinal extends furniture
     {
         length = icon11.getIconHeight();
         breadth = icon11.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon11);
     }
 }
@@ -223,7 +210,7 @@ class sink extends furniture
     {
         length = icon12.getIconHeight();
         breadth = icon12.getIconWidth();
-        this.setBounds(0,0,80,100);
+        this.setBounds(0,0,breadth,length);
         this.setIcon(icon12);
     }
 }
