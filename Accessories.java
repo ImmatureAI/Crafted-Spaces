@@ -11,6 +11,7 @@ public class Accessories extends JLabel implements MouseListener, MouseMotionLis
     Point initialpt;
     int length;
     int breadth;
+    private double rotationAngle = 0;
     Accessories()
     {
         accessoryHistory.add(this);
@@ -21,13 +22,17 @@ public class Accessories extends JLabel implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         prevpt = e.getPoint();
         initialpt = this.getLocation();
+
+        if(SwingUtilities.isRightMouseButton(e)) {
+            rotationAngle += 90;
+            repaint();
+        }
     }
 
     @Override
@@ -82,6 +87,13 @@ public class Accessories extends JLabel implements MouseListener, MouseMotionLis
     @Override
     public void mouseMoved(MouseEvent e) {
 
+    }
+
+    public void paintComponent(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.rotate(Math.toRadians(rotationAngle), breadth/2, length/2);
+        super.paintComponent(g2d);
+        g2d.dispose();
     }
 }
 
