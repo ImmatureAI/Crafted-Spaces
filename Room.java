@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 public class Room extends JPanel implements MouseListener, MouseMotionListener, Crafted_Spaces
 {
@@ -10,11 +11,11 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
     Point initialpoint;
     Point finalpt;
     int width,height;
-    static int numberofrooms=0;
     int spacewidth, spaceheight;
     Rectangle work;
     Rectangle outside;
     Color c;
+    ArrayList<DoorPanel> doors = new ArrayList<>();
 
     Room(int spacewidth, int spaceheight, Color c)
     {
@@ -53,12 +54,15 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
             int response = JOptionPane.showOptionDialog(null,"Select the operation to perform","Options",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,0);
 
             if (response == 0){
-                DoorPanel dp = new DoorPanel(c);
-                int result = JOptionPane.showOptionDialog(null,dp,"Adding a door",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,null,0);
-                this.setVisible(true);
+                int doorLength = Integer.parseInt(JOptionPane.showInputDialog("Enter the door length"));
+                DoorPanel dp = new DoorPanel(this, doorLength);
+                int result = JOptionPane.showOptionDialog(null,dp.position,"Adding a door",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,null,0);
                 if (result == 0){
-
-                    this.add(dp);
+                    System.out.println(dp.position.getSelectedItem());
+                    dp.doorPanel((String)dp.position.getSelectedItem()).setVisible(true);
+                    dp.doorPanel((String)dp.position.getSelectedItem()).setOpaque(true);
+                    this.add(dp.doorPanel((String)dp.position.getSelectedItem()));
+                    //doors.add(dp);
                 }
             }
             else if(response == 1){
@@ -72,6 +76,7 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
                     this.setLocation(relpos.changeposition(history.get(relpos.roomchecks.getSelectedIndex()), (String) relpos.position.getSelectedItem(), (String) relpos.alignment.getSelectedItem(), this));
                     checkOverlap();
                     checkInHouse();
+                    this.finalpt = this.getLocation();
                 }
             }
         }
