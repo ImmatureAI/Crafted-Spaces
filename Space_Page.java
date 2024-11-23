@@ -21,7 +21,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
     JMenuItem open;
     JButton garage;
     JButton kitchen;
-    JButton drawingroom;
+    JButton sauna;
     JButton bathroom;
     JButton bedroom;
 
@@ -72,7 +72,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(1380, 75, 150, 500);
+        rooms.setBounds(180, 75, 150, 500);
         rooms.setLayout(new GridLayout(5, 1));
 
         menubar = new JMenuBar();
@@ -168,10 +168,10 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         kitchen.setBorder(new MatteBorder(4,4,2,4, Color.black));
         kitchen.setFocusable(false);
 
-        drawingroom = new JButton("Drawing Room");
-        drawingroom.setBackground(new Color(255, 218, 176, 255));
-        drawingroom.addActionListener(e -> {
-            if (e.getSource() == drawingroom) {
+        sauna = new JButton("Sauna");
+        sauna.setBackground(new Color(255, 218, 176, 255));
+        sauna.addActionListener(e -> {
+            if (e.getSource() == sauna) {
                 try {
                     int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
                     int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
@@ -184,8 +184,8 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
                 }
             }
         });
-        drawingroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
-        drawingroom.setFocusable(false);
+        sauna.setBorder(new MatteBorder(2,4,2,4, Color.black));
+        sauna.setFocusable(false);
 
         bathroom = new JButton("Bathroom");
         bathroom.setBackground(new Color(190, 236, 255, 255));
@@ -408,27 +408,27 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sink.setFocusable(false);
 
 
-        door = new JButton();
-        door.setBackground(new Color(255, 171, 171, 255));
-        door.setBorder(new LineBorder(Color.black, 3));
-        door.setIcon(icon13);
-        door.addActionListener(e -> {
-            if (e.getSource() == door) {
-                new door();
-            }
-        });
-        door.setFocusable(false);
-
-        window = new JButton();
-        window.setBackground(new Color(255, 171, 171, 255));
-        window.setBorder(new LineBorder(Color.black, 3));
-        window.setIcon(icon14);
-        window.addActionListener(e -> {
-            if (e.getSource() == window) {
-                new window_comp();
-            }
-        });
-        window.setFocusable(false);
+//        door = new JButton();
+//        door.setBackground(new Color(255, 171, 171, 255));
+//        door.setBorder(new LineBorder(Color.black, 3));
+//        door.setIcon(icon13);
+//        door.addActionListener(e -> {
+//            if (e.getSource() == door) {
+//                new door();
+//            }
+//        });
+//        door.setFocusable(false);
+//
+//        window = new JButton();
+//        window.setBackground(new Color(255, 171, 171, 255));
+//        window.setBorder(new LineBorder(Color.black, 3));
+//        window.setIcon(icon14);
+//        window.addActionListener(e -> {
+//            if (e.getSource() == window) {
+//                new window_comp();
+//            }
+//        });
+//        window.setFocusable(false);
 
         accessories.add(sbed);
         accessories.add(lbed);
@@ -442,12 +442,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         accessories.add(bath);
         accessories.add(urinal);
         accessories.add(sink);
-        accessories.add(door);
-        accessories.add(window);
+//        accessories.add(door);
+//        accessories.add(window);
 
 
         rooms.add(kitchen);
-        rooms.add(drawingroom);
+        rooms.add(sauna);
         rooms.add(bathroom);
         rooms.add(bedroom);
         rooms.add(garage);
@@ -491,7 +491,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(1380, 75, 150, 500);
+        rooms.setBounds(180, 75, 150, 500);
         rooms.setLayout(new GridLayout(5, 1));
 
         menubar = new JMenuBar();
@@ -572,6 +572,9 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
             r.setBounds((int)r.finalpt.getX(),(int)r.finalpt.getY(),r.width,r.height);
             pane.add(r,Integer.valueOf(2));
             history.add(r);
+            for (DoorPanel d: r.doors){
+                r.add(d.doorPanel(r,d.pos),Integer.valueOf(1));
+            }
         }
 
         for (Accessories a: accessory){
@@ -601,10 +604,10 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         kitchen.setBorder(new MatteBorder(4,4,2,4, Color.black));
         kitchen.setFocusable(false);
 
-        drawingroom = new JButton("Drawing Room");
-        drawingroom.setBackground(new Color(255, 218, 176, 255));
-        drawingroom.addActionListener(e -> {
-            if (e.getSource() == drawingroom) {
+        sauna = new JButton("Sauna");
+        sauna.setBackground(new Color(255, 218, 176, 255));
+        sauna.addActionListener(e -> {
+            if (e.getSource() == sauna) {
                 try {
                     int a = Integer.parseInt(JOptionPane.showInputDialog("Enter width of the room"));
                     int b = Integer.parseInt(JOptionPane.showInputDialog("Enter length of the room"));
@@ -617,8 +620,8 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
                 }
             }
         });
-        drawingroom.setBorder(new MatteBorder(2,4,2,4, Color.black));
-        drawingroom.setFocusable(false);
+        sauna.setBorder(new MatteBorder(2,4,2,4, Color.black));
+        sauna.setFocusable(false);
 
         bathroom = new JButton("Bathroom");
         bathroom.setBackground(new Color(190, 236, 255, 255));
@@ -841,27 +844,27 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         sink.setFocusable(false);
 
 
-        door = new JButton();
-        door.setBackground(new Color(255, 171, 171, 255));
-        door.setBorder(new LineBorder(Color.black, 3));
-        door.setIcon(icon13);
-        door.addActionListener(e -> {
-            if (e.getSource() == door) {
-                new door();
-            }
-        });
-        door.setFocusable(false);
-
-        window = new JButton();
-        window.setBackground(new Color(255, 171, 171, 255));
-        window.setBorder(new LineBorder(Color.black, 3));
-        window.setIcon(icon14);
-        window.addActionListener(e -> {
-            if (e.getSource() == window) {
-                new window_comp();
-            }
-        });
-        window.setFocusable(false);
+//        door = new JButton();
+//        door.setBackground(new Color(255, 171, 171, 255));
+//        door.setBorder(new LineBorder(Color.black, 3));
+//        door.setIcon(icon13);
+//        door.addActionListener(e -> {
+//            if (e.getSource() == door) {
+//                new door();
+//            }
+//        });
+//        door.setFocusable(false);
+//
+//        window = new JButton();
+//        window.setBackground(new Color(255, 171, 171, 255));
+//        window.setBorder(new LineBorder(Color.black, 3));
+//        window.setIcon(icon14);
+//        window.addActionListener(e -> {
+//            if (e.getSource() == window) {
+//                new window_comp();
+//            }
+//        });
+        //window.setFocusable(false);
 
         accessories.add(sbed);
         accessories.add(lbed);
@@ -875,12 +878,12 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         accessories.add(bath);
         accessories.add(urinal);
         accessories.add(sink);
-        accessories.add(door);
-        accessories.add(window);
+        //accessories.add(door);
+        //accessories.add(window);
 
 
         rooms.add(kitchen);
-        rooms.add(drawingroom);
+        rooms.add(sauna);
         rooms.add(bathroom);
         rooms.add(bedroom);
         rooms.add(garage);
@@ -896,5 +899,11 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
 
     private void CloseCurrentFrame(){
         this.dispose();
+    }
+}
+
+class mainsdfe{
+    public static void main(String args[]){
+        new Space_Page(60,40);
     }
 }
