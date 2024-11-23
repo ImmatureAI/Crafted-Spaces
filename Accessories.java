@@ -12,6 +12,7 @@ public class Accessories extends JLabel implements MouseListener, MouseMotionLis
     int length;
     int breadth;
     private double rotationAngle = 0;
+
     Accessories()
     {
         accessoryHistory.add(this);
@@ -206,26 +207,6 @@ class bath extends furniture
         breadth = icon10.getIconWidth();
         this.setBounds(0,0,breadth,length);
         this.setIcon(icon10);
-    }
-}
-class urinal extends furniture
-{
-    urinal()
-    {
-        length = icon11.getIconHeight();
-        breadth = icon11.getIconWidth();
-        this.setBounds(0,0,breadth,length);
-        this.setIcon(icon11);
-    }
-}
-class sink extends furniture
-{
-    sink()
-    {
-        length = icon12.getIconHeight();
-        breadth = icon12.getIconWidth();
-        this.setBounds(0,0,breadth,length);
-        this.setIcon(icon12);
     }
 }
 
