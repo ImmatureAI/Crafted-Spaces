@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-public class Room extends JPanel implements MouseListener, MouseMotionListener, Crafted_Spaces
+public class Room extends JLayeredPane implements MouseListener, MouseMotionListener, Crafted_Spaces
 {
     Point prevpt;
     Point initialpoint;
@@ -26,9 +26,14 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
         this.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        //this.setLayout(null);
         JLabel label = new JLabel();
         label.setText(String.valueOf(history.size()));
-        this.add(label);
+        label.setBackground(Color.gray);
+        //label.setBounds(5,this.width/2,15,15);
+        label.setVerticalAlignment(JLabel.TOP);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        this.add(label, Integer.valueOf(2));
         this.setOpaque(true);
     }
 
@@ -54,23 +59,24 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
             int response = JOptionPane.showOptionDialog(null,"Select the operation to perform","Options",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,0);
 
             if (response == 0){
+                String[] positions = {"North", "East", "South", "West"};
+                JComboBox<String> position = new JComboBox<>(positions);
+
+                int result = JOptionPane.showOptionDialog(null,position,"Adding a door",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,null,0);
                 int doorLength = Integer.parseInt(JOptionPane.showInputDialog("Enter the door length"));
-                DoorPanel dp = new DoorPanel(this, doorLength);
-                int result = JOptionPane.showOptionDialog(null,dp.position,"Adding a door",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,null,0);
                 if (result == 0){
-                    System.out.println(dp.position.getSelectedItem());
-                    dp.doorPanel((String)dp.position.getSelectedItem()).setVisible(true);
-                    dp.doorPanel((String)dp.position.getSelectedItem()).setOpaque(true);
-                    this.add(dp.doorPanel((String)dp.position.getSelectedItem()));
+                    DoorPanel dp = new DoorPanel((String)position.getSelectedItem(), doorLength);
+                    System.out.println(position.getSelectedItem());
+                    dp.doorPanel(this,(String)position.getSelectedItem()).setVisible(true);
+                    dp.doorPanel(this, (String)position.getSelectedItem()).setOpaque(true);
+                    this.add(dp.doorPanel(this, (String)position.getSelectedItem()),Integer.valueOf(1));
                     repaint();
+                    doors.add(dp);
                     //revalidate();
                     //doors.add(dp);
                 }
             }
-            else if(response == 1){
-
-            }
-            else if (response == 2) {
+            else if (response == 1) {
                 RelativePosition relpos = new RelativePosition(history, history.size());
                 int result = JOptionPane.showOptionDialog(null, relpos, "Relative Position", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 0);
                 this.setVisible(true);
