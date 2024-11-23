@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 
 public class Fixtures extends Accessories{
+
     @Override
     public void mouseReleased(MouseEvent e) {
         for (Room r : history) {
@@ -18,7 +19,7 @@ public class Fixtures extends Accessories{
                 }
             }
         }
-
+        finalpt = this.getLocation();
 
     }
 }
