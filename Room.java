@@ -50,8 +50,8 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
             this.setBounds(this.getX(),this.getY(),this.width,this.height);
         }
         if(SwingUtilities.isMiddleMouseButton(e)){
-            String[] options = {"Add door", "Add window", "Place with relative position"};
-            int response = JOptionPane.showOptionDialog(null,"Select the operation to perform","Options",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,0);
+            String[] options = {"Add door", "Place with relative position"};
+            int response = JOptionPane.showOptionDialog(null,"Select the operation to perform","Options",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,0);
 
             if (response == 0){
                 int doorLength = Integer.parseInt(JOptionPane.showInputDialog("Enter the door length"));
@@ -62,6 +62,8 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
                     dp.doorPanel((String)dp.position.getSelectedItem()).setVisible(true);
                     dp.doorPanel((String)dp.position.getSelectedItem()).setOpaque(true);
                     this.add(dp.doorPanel((String)dp.position.getSelectedItem()));
+                    repaint();
+                    //revalidate();
                     //doors.add(dp);
                 }
             }
@@ -117,12 +119,12 @@ public class Room extends JPanel implements MouseListener, MouseMotionListener, 
     }
 
     private void checkOverlap(){
+        Rectangle present = new Rectangle(this.getX()-5, this.getY()-5, this.width-5, this.height-5);
         for(Room room : history) {
-            if((this.getX()>room.getX() && this.getX()< room.getX()+room.width - 5) || (this.getX()+this.width-5>room.getX() && this.getX()+this.width < room.getX()+room.width)){
-                if((this.getY()>room.getY() && this.getY()<room.getY()+room.height - 5) || (this.getY()+this.height-5>room.getY() && this.getY()+this.height<room.getY()+room.height)){
-                    JOptionPane.showMessageDialog(null,"Overlap", "ERROR", JOptionPane.WARNING_MESSAGE);
-                    this.setBounds(initialpoint.x, initialpoint.y, this.width, this.height);
-                }
+            Rectangle checking = new Rectangle(room.getX()-5, room.getY()-5, room.width-5, room.height-5);
+            if(present.intersects(checking) && room != this){
+                JOptionPane.showMessageDialog(null,"Overlap", "ERROR", JOptionPane.WARNING_MESSAGE);
+                this.setBounds(initialpoint.x, initialpoint.y, this.width, this.height);
             }
         }
     }
