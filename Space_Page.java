@@ -72,7 +72,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(180, 75, 150, 500);
+        rooms.setBounds(1380, 75, 150, 500);
         rooms.setLayout(new GridLayout(5, 1));
 
         menubar = new JMenuBar();
@@ -491,7 +491,7 @@ public class Space_Page extends JFrame implements Crafted_Spaces,Serializable
         accessories.setLayout(new GridLayout(7, 2));
 
         rooms = new JPanel();
-        rooms.setBounds(180, 75, 150, 500);
+        rooms.setBounds(1380, 75, 150, 500);
         rooms.setLayout(new GridLayout(5, 1));
 
         menubar = new JMenuBar();
